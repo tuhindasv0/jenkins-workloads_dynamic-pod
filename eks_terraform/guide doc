@@ -2,6 +2,8 @@ aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terr
 
 kubectl cluster-info
 
+kubectl exec -it pod/jenkins-manager-74cc6757bf-t8bv7 -n jenkins -- cat /var/jenkins_home/secrets/initialAdminPassword
+
 # Create the EKS Cluster
 
 eksctl create cluster --name poc-eks-test-v2 --region us-east-1 --with-oidc --zones "us-east-1a,us-east-1b" --nodegroup-name nodegroup-1 --nodes-min 2 --nodes-max 4 --enable-ssm --managed --asg-access

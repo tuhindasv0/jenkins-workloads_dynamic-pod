@@ -6,7 +6,6 @@
 
 export LC_CTYPE=C
 
-HASH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 7 | head -n 1)
 
 if [ $# -ne 4 ]; then
     echo "Refer to the AWS Account where the ECR Repository. Pass the following: Image Repository Name (Repository URI), AWS Account ID, Region Name, Image Tag, and finally enter the name of the folder for the image you want to build. (Jenkins-Manager / Jenkins-Agent)"
@@ -16,7 +15,6 @@ else
     REPOSITORY_NAME=$2
     REGION=$3
     FOLDER_NAME=$4
-    IMG_TAG=$HASH
 fi
 
 # Docker Login | ECR Login
@@ -27,8 +25,7 @@ REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY_NAME
 docker build -t $REPOSITORY_URI:latest $FOLDER_NAME
 
 # # Tag Image
-docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMG_TAG
+# docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMG_TAG
 
 # # Push Image
 docker push $REPOSITORY_URI:latest
-docker push $REPOSITORY_URI:$IMG_TAG

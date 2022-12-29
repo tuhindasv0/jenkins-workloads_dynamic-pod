@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.298
+FROM jenkins/jenkins:latest
 
 USER root
 
@@ -21,13 +21,18 @@ RUN set +x \
 COPY plugins/plugins.txt /usr/share/jenkins/plugins.txt
 COPY plugins/plugins_dev.txt /usr/share/jenkins/plugins_dev.txt
 
-# install Recommended Plugins
-RUN set +x \
-    && /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 
-# install Additional Plugins
-RUN set +x \
-    && /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins_dev.txt
+RUN jenkins-plugin-cli -f /usr/share/jenkins/plugins.txt
+
+RUN jenkins-plugin-cli -f /usr/share/jenkins/plugins_dev.txt
+
+# install Recommended Plugins
+# RUN set +x \
+#     && /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
+
+# # install Additional Plugins
+# RUN set +x \
+#     && /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins_dev.txt
 
 # change directory owner for jenkins home
 RUN chown -R jenkins:jenkins /var/jenkins_home
