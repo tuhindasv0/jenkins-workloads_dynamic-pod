@@ -109,7 +109,7 @@ spec:
         runAsNonRoot: false
       containers:
         - name: jenkins-manager
-          image: 475600362560.dkr.ecr.us-east-1.amazonaws.com/poc-eks-jenkins:v1 # Enter the jenkins manager image
+          image: <Manager Image> # Enter the jenkins manager image
           # image: nginx:latest
           imagePullPolicy: Always
           resources:

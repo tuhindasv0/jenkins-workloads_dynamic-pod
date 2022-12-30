@@ -11,7 +11,7 @@ spec:
     runAsNonRoot: false
   containers:
   - name: jenkins-agent
-    image: 475600362560.dkr.ecr.us-east-1.amazonaws.com/poc-eks-jenkins-agent:latest # Enter the jenkins inbound agent image.
+    image: <Agent Image> # Enter the jenkins inbound agent image.
     command:
     - cat
     tty: true
